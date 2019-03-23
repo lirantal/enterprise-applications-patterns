@@ -17,7 +17,12 @@ http://adventure-works.com/orders/1
 Clients interact with a service by exchanging representations of resources. Many web APIs use JSON as the exchange format. For example, a GET request to the URI listed above might return this response body:
 
 ```json
-{“orderId":1,"orderValue":99.90,"productId":1,"quantity":1}
+{
+	"orderId": 1,
+	"orderValue": 99.9,
+	"productId": 1,
+	"quantity": 1
+}
 ```
 
 REST APIs use a uniform interface, which helps to decouple the client and service implementations. For REST APIs built on HTTP, the uniform interface includes using standard HTTP verbs perform operations on resources. The most common operations are GET, POST, PUT, PATCH, and DELETE.
@@ -131,8 +136,8 @@ An example error payload:
 
 ```json
 {
-  "message": "Error when validation fields",
-  "status": "FIELDS_VALIDATION_ERROR"
+	"message": "Error when validation fields",
+	"status": "FIELDS_VALIDATION_ERROR"
 }
 ```
 
@@ -199,13 +204,15 @@ An example successful response might look like this:
 
 ```json
 {
-  data: {"// data payload goes here": ""}
-  meta: {
-    requestTime: 123453453,
-    requestId: 123,
-    message: "SUCCESS",
-    status: null,
-    statusCode: 200
+  "data": {
+    "// data payload goes here": ""
+  },
+  "meta": {
+    "requestTime": 123453453,
+    "requestId": 123,
+    "message": "SUCCESS",
+    "status": null,
+    "statusCode": 200
   }
 }
 ```
@@ -216,16 +223,19 @@ In cases of errors, such as when 400 or 500 responses are sent back by servers, 
 
 ```json
 {
-  data: { "// in cases of API errors, the errors information is inside the data field"
-    description: "One or more fields raised validation errors",
-    invalidPath: { } // the joi schema validation path
+  "data": {
+    "// in cases of API errors, the errors information is inside the data field": "",
+    "description": "One or more fields raised validation errors",
+    "invalidPath": {
+      "// the joi schema validation path": ""
+    }
   },
-  meta: {
-    requestTime: 123453453,
-    requestId: 123,
-    message: "Error when validation fields",
-    status: "FIELDS_VALIDATION_ERROR",
-    statusCode: 422
+  "meta": {
+    "requestTime": 123453453,
+    "requestId": 123,
+    "message": "Error when validation fields",
+    "status": "FIELDS_VALIDATION_ERROR",
+    "statusCode": 422
   }
 }
 ```
@@ -281,14 +291,25 @@ REST APIs are driven by hypermedia links that are contained in the representatio
 
 ```json
 {
-    "orderID":3,
-    "productID":2,
-    "quantity":4,
-    "orderValue":16.60,
-    "links": [
-        {"rel":"product","href":"http://adventure-works.com/customers/3", "action":"GET”, "types":["application/x-www-form-urlencoded"] },
-        {"rel":"product","href":"http://adventure-works.com/customers/3", "action":"PUT" }
-    ]
+  "orderID": 3,
+  "productID": 2,
+  "quantity": 4,
+  "orderValue": 16.6,
+  "links": [
+    {
+      "rel": "product",
+      "href": "http://adventure-works.com/customers/3",
+      "action": "GET",
+      "types": [
+        "application/x-www-form-urlencoded"
+      ]
+    },
+    {
+      "rel": "product",
+      "href": "http://adventure-works.com/customers/3",
+      "action": "PUT"
+    }
+  ]
 }
 ```
 
