@@ -8,7 +8,7 @@ A collectcion of (opinionated) guidelines, and patterns for architecting and bui
 </p>
 
 <p align="center">
-  <img src="https://flat.badgen.net/badge/backend%20practices/3/green">
+  <img src="https://flat.badgen.net/badge/backend%20practices/4/green">
 </p>
 
 ---
@@ -20,6 +20,7 @@ A collectcion of (opinionated) guidelines, and patterns for architecting and bui
 - [RESTful APIs](./backend/restful-api.md)
 - [Pagination](./backend/pagination.md)
 - [Backend Testing Strategy](./backend/backend-testing-strategy.md)
+- [Consumer-Driven-Contracts](./consumer-driven-contracts.md)
 
 # Contributing
 
