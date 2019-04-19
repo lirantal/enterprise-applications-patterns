@@ -27,7 +27,7 @@ For this guide, you will need:
 
 Once upon a time in a galaxy far, far away, most of us followed this standard architecture for building web applications:
 
-![the monolith empire!](./images/cdc-monoliths.png)
+![the monolith empire!](../images/cdc-monoliths.png)
 
 You can easily fill in the text for the squares by yourself.  
 Some options are:
@@ -42,7 +42,7 @@ But Monoliths shows its weakness as teams, traffic, business and complexity scal
 
 So we ventured into embracing the Service Oriented Architecture to its full power. Here is Amazon’s collection of microservices around 2009 to remind you what the two squares evolve to when this happens:
 
-![amazon ~2009; src: https://apigee.com/about/blog/api-technology/microservices-amazon](./images/cdc-microservices-amazon-example.png)
+![amazon ~2009; src: https://apigee.com/about/blog/api-technology/microservices-amazon](../images/cdc-microservices-amazon-example.png)
 
 Sure enough I’m deliberately drawing an extreme here, but even for small products — the business domain splits across several services and teams, different data stores, some infrastructure middlewares (auth, user management, communication messaging, configuration, etc).
 
@@ -54,7 +54,7 @@ Let’s take a use-case:
 -   Team A is responsible for movies
 -   Team B is responsible for reviews
 
-![use-case](./images/cdc-use-case.png)
+![use-case](../images/cdc-use-case.png)
 
 Each team’s test and delivery pipeline is made up of common testing practices such as unit, integration and end-to-end testing. But the real question is how does each team tests its services, and manages to deploys independently to production, without breaking the API contract?
 
@@ -78,7 +78,7 @@ So you go ahead and default to the naive approach — let’s bring up all o
 
 It resembles something like the below picture, right:
 
-![cdc test with e2e](./images/cdc-test-with-e2e.png)
+![cdc test with e2e](../images/cdc-test-with-e2e.png)
 
 You end up needing to maintain a bloat environment with many dependencies and orchestrate them to work together. Let’s not even mention the added complexity with seeding data into those other services you need.
 
@@ -96,7 +96,7 @@ To put it simply — with contract testing, you work with mocks that represe
 
 ## The Players in Contract Testing
 
-![the players in the pact contract testing game](./images/cdc-players.png)
+![the players in the pact contract testing game](../images/cdc-players.png)
 
 The  [Pact Framework](https://docs.pact.io/)  is an open source project for contract testing with support for several platforms like Ruby, JavaScript, Java and others through its set of libraries.
 
@@ -123,13 +123,13 @@ The  **pact broker**  holds the contracts and provides added value such as displ
 
 Following is a high level overview for the workflow of contract testing between a consumer and a provider team.
 
-![high-level contract testing workflow](./images/cdc-testing-workflow.png)
+![high-level contract testing workflow](../images/cdc-testing-workflow.png)
 
 The cycle starts with the top-left side of the picture where the consumer team initiates a collaboration  about the requirements for the contract with the provider team.
 
 Once both teams have agreed on the API contract, the consumer team can venture into writing tests that manifest the interactions and their expectations. The result of running these tests will become the contract, in essence, being a JSON representation of the API contract specifying all the expected interactions.
 
-These contracts have to live somewhere. While you are free to host them straight up on a git repository, or in an artifact repository such as  [Nexus](https://www.sonatype.com/nexus-repository-oss)  or  [Artifactory](https://jfrog.com/artifactory/), there’s a huge benefit of using Pact’s own solution to host them and that’s called the Pact Broker. Some of the benefits include: visibility of service dependencies, webhooks, visibility into contract verification status, and much more. Needless to add — it is open source so you can spin up your own broker in a container.
+These contracts have to live somewhere. While you are free to host them straight up on a git repository, or in an artifact repository such as [Nexus](https://www.sonatype.com/nexus-repository-oss) or [Artifactory](https://jfrog.com/artifactory/), there’s a huge benefit of using Pact’s own solution to host them and that’s called the Pact Broker. Some of the benefits include: visibility of service dependencies, webhooks, visibility into contract verification status, and much more. Needless to add — it is open source so you can spin up your own broker in a container.
 
 Later in the future, the provider team implements the API contracts for its consumer.
 
@@ -151,7 +151,7 @@ The Movies microservice has an HTTP client utility library that helps in making 
 
 It may look like this: 
 
-![cdc client library](./images/cdc-http-client-lib.png)
+![cdc client library](../images/cdc-http-client-lib.png)
 
 Above: An HTTP Client library helper to interact with another dependency (i.e: another service over HTTP)
 
@@ -166,7 +166,7 @@ This is where the Pact framework comes in, and provides you this mock, plus, you
 
 Beginning our Reviews Service mock consumer test:
 
-![Consumer Contract test setup](./images/cdc-client-contract-test-1.png)
+![Consumer Contract test setup](../images/cdc-client-contract-test-1.png)
 
 The above starts the consumer test code with the following tasks:
 
@@ -180,7 +180,7 @@ When practicing Consumer contract testing, the bulk of the test is about declari
 1.  Declaring the Request — in the  `withRequest`  clause all the details making up this individual request are stated.
 2.  Declaring the Response — in the  `willRespondWith`  clause we are setting up the expectations with regards to the API response.
 
-![cdc client library](./images/cdc-client-contract-test-2.png)
+![cdc client library](../images/cdc-client-contract-test-2.png)
 Consumer Contract Test code
 
 The  `state`  and  `uponReceiving`  properties are also important as they define what the request is (beyond the test-case level), and the state that the provider is expected to comply with. More on state in the provider contract testing.
@@ -201,7 +201,7 @@ The following takes place:
 2.  Interactions are registered, then test code is executed, interactions are cleaned up, and set up again and so on.
 3.  All interactions are verified, resulting in a contract file written, and the mock service get shutdown.
 
-![Jest is running Consumer Contract Tests is easy-peasy as if running a unit test](./images/cdc-client-contract-test-3.png)
+![Jest is running Consumer Contract Tests is easy-peasy as if running a unit test](../images/cdc-client-contract-test-3.png)
 
 #### Consumer unit testing guidelines:
 
@@ -223,7 +223,7 @@ So in essence, there is a provider API service instantiated and waiting to handl
 
 Here is how the provider testing looks like:
 
-![Provider Contract Test](./images/cdc-provider-testing-1.png)
+![Provider Contract Test](../images/cdc-provider-testing-1.png)
 
 That’s it! Well, almost!
 
@@ -246,7 +246,7 @@ So the Pact framework expects an HTTP endpoint such as  `/setup`  to be ready to
 
 An example of a state management endpoint:
 
-![State Management for Provider Testing](./images/cdc-provider-testing-2.png)
+![State Management for Provider Testing](../images/cdc-provider-testing-2.png)
 
 In summary, the following is needed to run provider contract tests:
 
@@ -298,7 +298,7 @@ This guide is based on a  [trunk based development](https://trunkbaseddevelopmen
 
 This affects the go-to-production practice and introduces the use of a Pact Manifest facility, but the rest of the guide and DevOps process mentioned through-out is still applicable regardless.
 
-![cdc trunk based development workflow](./images/cdc-tbd-flow.png)
+![cdc trunk based development workflow](../images/cdc-tbd-flow.png)
 
 Above: Trunk-Based Development is a key enabler of  [Continuous Integration](https://trunkbaseddevelopment.com/continuous-integration/)  and by extension  [Continuous Delivery](https://trunkbaseddevelopment.com/continuous-delivery/). src:  [https://trunkbaseddevelopment.com](https://trunkbaseddevelopment.com/)
 
@@ -315,7 +315,7 @@ This may raise some questions, for example — how can I merge consumer code
 
 Consumers will engage in creating the pacts (the API contracts) and push them to the Broker, where the pacts can then be downloaded by Providers to run tests against them. When provider tests fail, the provider’s CI will prohibit the provider from moving on to production, as indeed that will break a contract with its consumers.
 
-![devops workflow](./images/cdc-devops-recipe.png)
+![devops workflow](../images/cdc-devops-recipe.png)
 
 The flow depicted in the diagram is as follows:
 
@@ -334,7 +334,7 @@ General notes about the above flow:
 
 Taking a deeper look into the mechanics of the Consumers pipeline will further shed a light on when contract testing takes place, and what is the interaction like with the broker and pact manifest tagging.
 
-![Consumer DevOps pipeline](./images/cdc-devops-consumer.png)
+![Consumer DevOps pipeline](../images/cdc-devops-consumer.png)
 
 **Build  
 **In the life-span of a Pull Request we run several tests during the build phase and take care of publishing a so-called  **_build_**  contract that is only used in order to download it later in the CI phase.
@@ -387,7 +387,7 @@ To do that, we need to spin up a real instance of the provider’s API service, 
 
 Once the provider API service is up, it is also required to make available an endpoint that can be called by the pact runners before each interaction is being performed in order to tell the provider which state to change to.
 
-![Provider DevOps pipeline](./images/cdc-devops-provider.png)
+![Provider DevOps pipeline](../images/cdc-devops-provider.png)
 
 In essence, when the CI runs, the consumer contracts are fetched from the broker, and the provider API service is brought up to serve requests. The pact framework will read each consumer contract and start playing the requests one by one, before each of them it will advise the provider what state it is expected to be, and once the request has been sent, the pact framework will verify the interaction.
 
@@ -397,7 +397,7 @@ Once all the interactions have ran, upon both a successful or failed contract te
 
 The following is a sequence diagram depicting the entire flow across the Consumer, Broker and Provider.
 
-![Complete DevOps Workflow for CDC](./images/cdc-devops-all-workflow.jpeg)
+![Complete DevOps Workflow for CDC](../images/cdc-devops-all-workflow.jpeg)
 
 ## Summary
 
@@ -406,5 +406,3 @@ Whether your APIs are RESTful HTTP calls, GraphQL-powered, or asynchronous messa
 You most probably can not afford to break these contracts and this is where the Consumer-Driven Contracts pattern shines along with the Pact framework to enable your teams a platform of API contract management.
 
 There are several ways to go about implementing Consumer-Driven Contract flows and they mostly depend on the R&D teams culture, their source code versioning workflows and DevOps readyness.
-
-
