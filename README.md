@@ -20,7 +20,7 @@ A collectcion of (opinionated) guidelines, and patterns for architecting and bui
 - [RESTful APIs](./backend/restful-api.md)
 - [Pagination](./backend/pagination.md)
 - [Backend Testing Strategy](./backend/backend-testing-strategy.md)
-- [Consumer-Driven-Contracts](./consumer-driven-contracts.md)
+- [Consumer-Driven-Contracts](./backend/consumer-driven-contracts.md)
 
 # Contributing
 
