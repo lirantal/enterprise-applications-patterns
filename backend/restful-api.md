@@ -313,6 +313,23 @@ REST APIs are driven by hypermedia links that are contained in the representatio
 }
 ```
 
+## API Versioning
+
+API versioning is a practice that enables services to evolve their APIs with new changes, signatures and the overall API contract without interrupting API consumers and forcing them to repeatedly make changes in order to keep in pace with changes that service providers apply to their APIs.
+
+Several methodologies exist to version your API:
+
+* URL: A request specifies the version for the resource as part of the path in the URL: http://api.domain.com/api/v1/schools/3/students
+* Query String: A request specifies the resource in a query string: http://api.domain.com/api/schools/3/students?api-version=1
+* Custom HTTP Header: A request to a resource http://api.domain.com/api/schools/3/students with a custom HTTP header set in the request, such as: `X-Api-Version: 1`.
+* MIME type content negotiation: A request to a resource http://api.domain.com/api/schools/3/students with an `Accept` header that specifies the requested content and its version: `Accept: application/vnd.ecma.app-v2+json`
+
+There is no strict rule on which methodology to follow and each has their own pros and cons. The RESTful approach is the semantic mime type content negotiation, but a more pragmatic solution that has been employed more commonly on the web is the URL and custom HTTP header.
+
+### Why API Versioning
+
+Upgrading APIs with some breaking change would lead to breaking existing products, services or even your own frontend web application which is dependent on your API contract. By implementing API versioning you can ensure that changes you make to your underlying API endpoints are not affecting systems that consume them, and using a new version of an API is an opt-in on the consumer.
+
 # References
 
 - Adobe's Audience Manager's API Guide: https://bank.demdex.com/portal/swagger/index.html
